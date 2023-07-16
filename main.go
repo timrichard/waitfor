@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/go-ping/ping"
 	"os"
+	"runtime"
 	"strconv"
 	"time"
 )
@@ -33,7 +34,9 @@ func main() {
 			os.Exit(1)
 		}
 
-		pinger.SetPrivileged(true)
+		if runtime.GOOS == "linux" {
+			pinger.SetPrivileged(true)
+		}
 
 		pinger.Count = 1
 		pinger.Timeout = pingTimeout
